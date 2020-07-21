@@ -1,2 +1,2 @@
 # MVVMSample
- Android MVVM Sample
+ Android MVVM Sample using Retrofit, Kotlin, and RxJava
