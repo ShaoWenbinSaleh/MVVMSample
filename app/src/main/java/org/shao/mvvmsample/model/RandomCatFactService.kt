@@ -4,6 +4,7 @@ import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Query
 
+// The interface required by Retrofit, functioned as a service for the network communication
 interface RandomCatFactService {
     @GET("facts/random")
     fun getRandomCatFact() : Single<RandomCatFactModel>

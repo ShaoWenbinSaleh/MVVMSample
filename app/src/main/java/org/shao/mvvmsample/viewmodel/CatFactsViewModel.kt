@@ -7,17 +7,18 @@ import org.shao.mvvmsample.model.RandomCatFactModel
 import org.shao.mvvmsample.model.RandomCatFactService
 import org.shao.mvvmsample.utility.async
 
-class CatFactsViewModel(private val remote: RandomCatFactService) : ViewModel() {
+class CatFactsViewModel(private val retrofitService: RandomCatFactService) : ViewModel() {
     val loading = MutableLiveData<Boolean>()
     val text = MutableLiveData<String>()
-    val error = MutableLiveData<Throwable>()
+    private val error = MutableLiveData<Throwable>()
 
     init {
         loading.value = false
     }
 
+    // Single is a commonly used class in RxJava. It is very similar with Observable but only emits success or errors
     fun loadRandomCatFact() : Single<RandomCatFactModel> =
-        remote.getRandomCatFact()
+        retrofitService.getRandomCatFact()
             .async(1000)
             .doOnSuccess { t: RandomCatFactModel? ->
                 t?.let {
@@ -27,7 +28,9 @@ class CatFactsViewModel(private val remote: RandomCatFactService) : ViewModel() 
             }
             .doOnSubscribe { startLoading()}
             .doAfterTerminate { finishLoading() }
+            .doOnError { error }
 
+    // When loading, show the progress bar until the loading is finished
     private fun startLoading() = loading.postValue(true)
     private fun finishLoading() = loading.postValue(false)
 }

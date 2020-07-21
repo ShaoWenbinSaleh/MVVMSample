@@ -22,17 +22,15 @@ class CatFactsActivity : RxAppCompatActivity() {
 
         val binding: CatFactsActivityBinding = DataBindingUtil.setContentView(this, R.layout.cat_facts_activity)
 
-        val remote = Retrofit.Builder()
+        val retrofitService = Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .addConverterFactory(GsonConverterFactory.create())
             .build().create(RandomCatFactService::class.java)
 
-        /*
-            Here the base class "ViewModel" is actually not used. If we want to use that, we must use the ViewModelFactory to instantiate a new CatFactsViewModel,
-            then the data sharing between fragments can be easier and the data binding can be kept when the screen is rotated. But those functions are not required.
-         */
-        mViewModel = CatFactsViewModel(remote)
+        // Here the base class "ViewModel" is actually not used. If we want to use that, we must use the ViewModelFactory to instantiate a new CatFactsViewModel,
+        // then the data sharing between fragments can be easier and the data binding can be kept when the screen is rotated. But those functions are not required.
+        mViewModel = CatFactsViewModel(retrofitService)
 
         binding.button.setOnClickListener {
             mViewModel.loadRandomCatFact().compose(bindToLifecycle())
