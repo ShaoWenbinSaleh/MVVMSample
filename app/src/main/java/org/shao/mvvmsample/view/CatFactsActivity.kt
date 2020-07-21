@@ -7,7 +7,7 @@ import com.trello.rxlifecycle2.components.support.RxAppCompatActivity
 import org.shao.mvvmsample.R
 import org.shao.mvvmsample.databinding.CatFactsActivityBinding
 import org.shao.mvvmsample.model.RandomCatFactService
-import org.shao.mvvmsample.utility.HOST_API
+import org.shao.mvvmsample.utility.BASE_URL
 import org.shao.mvvmsample.viewmodel.CatFactsViewModel
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -23,16 +23,20 @@ class CatFactsActivity : RxAppCompatActivity() {
         val binding: CatFactsActivityBinding = DataBindingUtil.setContentView(this, R.layout.cat_facts_activity)
 
         val remote = Retrofit.Builder()
-            .baseUrl(HOST_API)
+            .baseUrl(BASE_URL)
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .addConverterFactory(GsonConverterFactory.create())
             .build().create(RandomCatFactService::class.java)
 
+        /*
+            Here the base class "ViewModel" is actually not used. If we want to use that, we must use the ViewModelFactory to instantiate a new CatFactsViewModel,
+            then the data sharing between fragments can be easier and the data binding can be kept when the screen is rotated. But those functions are not required.
+         */
         mViewModel = CatFactsViewModel(remote)
 
         binding.button.setOnClickListener {
             mViewModel.loadRandomCatFact().compose(bindToLifecycle())
-                .subscribe ({},{ it -> dispatchError(it) })
+                .subscribe ({},{ dispatchError(it) })
         }
 
         binding.vm = mViewModel

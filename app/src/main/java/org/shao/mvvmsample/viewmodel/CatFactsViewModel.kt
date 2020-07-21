@@ -1,12 +1,13 @@
 package org.shao.mvvmsample.viewmodel
 
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import io.reactivex.Single
 import org.shao.mvvmsample.model.RandomCatFactModel
 import org.shao.mvvmsample.model.RandomCatFactService
 import org.shao.mvvmsample.utility.async
 
-class CatFactsViewModel(private val remote: RandomCatFactService) {
+class CatFactsViewModel(private val remote: RandomCatFactService) : ViewModel() {
     val loading = MutableLiveData<Boolean>()
     val text = MutableLiveData<String>()
     val error = MutableLiveData<Throwable>()

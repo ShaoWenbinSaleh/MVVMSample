@@ -1,3 +1,3 @@
 package org.shao.mvvmsample.utility
 
-const val HOST_API = "https://cat-fact.herokuapp.com/"
+const val BASE_URL = "https://cat-fact.herokuapp.com/"
