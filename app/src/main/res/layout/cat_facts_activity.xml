@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="vm"
+            type="org.shao.mvvmsample.viewmodel.CatFactsViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:animateLayoutChanges="true"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Get a random cat fact"
+            android:visibility="@{vm.loading?View.GONE:View.VISIBLE}" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text= "@{vm.text}"
+            android:textSize="30sp"
+            android:visibility="@{vm.loading?View.GONE:View.VISIBLE}" />
+
+        <!-- The progressbar being showed when loading data from the server-->
+        <ProgressBar
+            android:id="@+id/loading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="64dp"
+            android:indeterminate="true"
+            android:indeterminateTint="@color/colorPrimary"
+            android:indeterminateTintMode="src_in"
+            android:visibility="@{vm.loading?View.VISIBLE:View.GONE}" />
+
+
+    </LinearLayout>
+
+</layout>

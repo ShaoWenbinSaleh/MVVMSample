@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">MVVM-Sample</string>
+    <!--id of 3D themes-->
+<!--    <string name="koi_fish">koiFish</string>-->
+<!--    <string name="tech_earth">techEarth</string>-->
+<!--    <string name="gold_butterfly">goldButterfly</string>-->
+<!--    <string name="blue_fire_skull">blueSkull</string>-->
+</resources>
